@@ -110,7 +110,7 @@ func TestRefreshTokenPolicy(t *testing.T) {
 		Level:     logrus.DebugLevel,
 	}
 
-	r, err := NewRefreshTokenPolicy(l, true, "1m", "1m", "1m", false, 0, "")
+	r, err := NewRefreshTokenPolicy(l, true, "1m", "1m", "1m")
 	require.NoError(t, err)
 
 	t.Run("Allowed", func(t *testing.T) {
