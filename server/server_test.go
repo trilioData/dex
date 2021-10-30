@@ -122,7 +122,7 @@ func newTestServer(ctx context.Context, t *testing.T, updateConfig func(c *Confi
 
 	// Default rotation policy
 	if server.refreshTokenPolicy == nil {
-		server.refreshTokenPolicy, err = NewRefreshTokenPolicy(logger, false, "", "", "", false, 0, "")
+		server.refreshTokenPolicy, err = NewRefreshTokenPolicy(logger, false, "", "", "")
 		if err != nil {
 			t.Fatalf("failed to prepare rotation policy: %v", err)
 		}
