@@ -979,6 +979,7 @@ func (s *Server) exchangeAuthCode(w http.ResponseWriter, authCode storage.AuthCo
 				return nil, err
 			}
 		} else {
+			s.logger.Infof("allowMultiple: %v", s.refreshTokenPolicy.allowMultiple)
 			if !s.refreshTokenPolicy.allowMultiple {
 				if oldTokenRef, ok := session.Refresh[tokenRef.ClientID]; ok {
 					// Delete old refresh token from storage.
@@ -990,6 +991,7 @@ func (s *Server) exchangeAuthCode(w http.ResponseWriter, authCode storage.AuthCo
 					}
 				}
 			} else {
+				s.logger.Infof("Deleting multiple refresh tokens")
 				if err := s.deleteRefreshTokens(refresh.ConnectorID, refresh.Claims.UserID); err != nil {
 					s.logger.Errorf("error while deleting refresh token: %v", err)
 				}
@@ -1251,6 +1253,7 @@ func (s *Server) handlePasswordGrant(w http.ResponseWriter, r *http.Request, cli
 					}
 				}
 			} else {
+				s.logger.Infof("Deleting multiple refresh tokens")
 				if err := s.deleteRefreshTokens(refresh.ConnectorID, refresh.Claims.UserID); err != nil {
 					s.logger.Errorf("error while deleting refresh token: %v", err)
 				}
@@ -1280,6 +1283,8 @@ func (s *Server) deleteRefreshTokens(connectorID string, userID string) error {
 		return err
 	}
 
+	s.logger.Infof("found refresh tokens %d", len(refreshTokens))
+	s.logger.Infof("connectorID: %s, userID: %s, maxTokens: %d", connectorID, userID, s.refreshTokenPolicy.maxTokens)
 	var userRefreshTokens []storage.RefreshToken
 	for index := range refreshTokens {
 		refreshToken := refreshTokens[index]
@@ -1287,6 +1292,8 @@ func (s *Server) deleteRefreshTokens(connectorID string, userID string) error {
 			userRefreshTokens = append(userRefreshTokens, refreshToken)
 		}
 	}
+
+	s.logger.Infof("found user refresh tokens %d", len(userRefreshTokens))
 
 	if len(userRefreshTokens) <= s.refreshTokenPolicy.maxTokens {
 		return nil
@@ -1301,6 +1308,7 @@ func (s *Server) deleteRefreshTokens(connectorID string, userID string) error {
 	})
 
 	tokensToDelete := userRefreshTokens[:len(userRefreshTokens)-s.refreshTokenPolicy.maxTokens]
+	s.logger.Infof("tokens to delete: %d", len(tokensToDelete))
 	var deletionError bool
 	for index := range tokensToDelete {
 		refreshToken := tokensToDelete[index]
