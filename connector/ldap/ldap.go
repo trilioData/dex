@@ -87,6 +87,8 @@ type Config struct {
 	ClientKey string `json:"clientKey"`
 	// Base64 encoded PEM data containing root CAs.
 	RootCAData []byte `json:"rootCAData"`
+	ClientCertData []byte `json:"clientCertData"`
+	ClientKeyData []byte `json:"clientKeyData"`
 
 	// BindDN and BindPW for an application service account. The connector uses these
 	// credentials to search for users and groups.
@@ -274,6 +276,10 @@ func (c *Config) openConnector(logger log.Logger) (*ldapConnector, error) {
 		if err != nil {
 			return nil, fmt.Errorf("ldap: load client cert failed: %v", err)
 		}
+		tlsConfig.Certificates = append(tlsConfig.Certificates, cert)
+	}
+	if len(c.ClientKeyData) != 0 && len(c.ClientCertData) != 0 {
+		cert, _ := tls.X509KeyPair(c.ClientCertData, c.ClientKeyData)
 		tlsConfig.Certificates = append(tlsConfig.Certificates, cert)
 	}
 	userSearchScope, ok := parseScope(c.UserSearch.Scope)
