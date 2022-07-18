@@ -15,10 +15,10 @@ import (
 	"entgo.io/ent/dialect/sql/schema"
 	_ "github.com/lib/pq" // Register postgres driver.
 
-	"github.com/dexidp/dex/pkg/log"
-	"github.com/dexidp/dex/storage"
-	"github.com/dexidp/dex/storage/ent/client"
-	"github.com/dexidp/dex/storage/ent/db"
+	"github.com/dexidp/dex/v2/pkg/log"
+	"github.com/dexidp/dex/v2/storage"
+	"github.com/dexidp/dex/v2/storage/ent/client"
+	"github.com/dexidp/dex/v2/storage/ent/db"
 )
 
 // nolint

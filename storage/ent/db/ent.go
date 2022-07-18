@@ -8,16 +8,16 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/dexidp/dex/storage/ent/db/authcode"
-	"github.com/dexidp/dex/storage/ent/db/authrequest"
-	"github.com/dexidp/dex/storage/ent/db/connector"
-	"github.com/dexidp/dex/storage/ent/db/devicerequest"
-	"github.com/dexidp/dex/storage/ent/db/devicetoken"
-	"github.com/dexidp/dex/storage/ent/db/keys"
-	"github.com/dexidp/dex/storage/ent/db/oauth2client"
-	"github.com/dexidp/dex/storage/ent/db/offlinesession"
-	"github.com/dexidp/dex/storage/ent/db/password"
-	"github.com/dexidp/dex/storage/ent/db/refreshtoken"
+	"github.com/dexidp/dex/v2/storage/ent/db/authcode"
+	"github.com/dexidp/dex/v2/storage/ent/db/authrequest"
+	"github.com/dexidp/dex/v2/storage/ent/db/connector"
+	"github.com/dexidp/dex/v2/storage/ent/db/devicerequest"
+	"github.com/dexidp/dex/v2/storage/ent/db/devicetoken"
+	"github.com/dexidp/dex/v2/storage/ent/db/keys"
+	"github.com/dexidp/dex/v2/storage/ent/db/oauth2client"
+	"github.com/dexidp/dex/v2/storage/ent/db/offlinesession"
+	"github.com/dexidp/dex/v2/storage/ent/db/password"
+	"github.com/dexidp/dex/v2/storage/ent/db/refreshtoken"
 )
 
 // ent aliases to avoid import conflicts in user's code.

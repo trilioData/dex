@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/dexidp/dex/storage/ent/db/devicerequest"
+	"github.com/dexidp/dex/v2/storage/ent/db/devicerequest"
 )
 
 // DeviceRequest is the model entity for the DeviceRequest schema.

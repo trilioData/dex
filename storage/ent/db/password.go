@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/dexidp/dex/storage/ent/db/password"
+	"github.com/dexidp/dex/v2/storage/ent/db/password"
 )
 
 // Password is the model entity for the Password schema.
